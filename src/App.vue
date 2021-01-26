@@ -1,28 +1,57 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <h1>app</h1> -->
+    <Header title="首页">
+     <span slot="left" class="btn" @click="showLocationAction"> 定位</span>
+     <span slot="left" class="btn"> 天气 </span>
+     <span slot="right" class="btn" @click="showSearchAction">搜索一下</span>
+    </Header>
+
+    <Location v-show="showLocation" @close="showLocationAction" />
+    <Search v-show="showSearch" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// 将组件进行导入
+// import Header  from './pages/Header' 
+import Location from './pages/Location' 
+import Search from './pages/Search'
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+components:{
+  // Header,
+  Location,Search
+},
+data(){
+  return {
+    showLocation:false,
+    showSearch:false,
   }
+},
+methods:{
+  showLocationAction(){
+    console.log('123');
+    
+    this.showLocation = !this.showLocation
+  },
+  showSearchAction(){
+    this.showSearch = true;
+  }
+},
+created(){
+  this.$eventBus.$on('search-back',() => {
+    this.showSearch = false
+  })
+}
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style>
+*{
+  margin: 0;
+  padding: 0;
+}
+.btn{
+  padding:0 10px
 }
 </style>
