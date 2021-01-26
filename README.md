@@ -16,3 +16,5 @@ Header.vue是顶部组件
 
 第一版：将文件都是放在pages里面
 
+第二版是将Header单独放在components中
+
